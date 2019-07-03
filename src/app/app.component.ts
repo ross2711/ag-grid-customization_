@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -10,9 +10,15 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   columnDefs = [
-    { headerName: 'Make', field: 'make', sortable: true, filter: true },
-    { headerName: 'Model', field: 'model', sortable: true, filter: true },
-    { headerName: 'Price', field: 'price', sortable: true, filter: true }
+    {
+      headerName: 'make',
+      field: 'make',
+      sortable: true,
+      filter: true,
+      checkboxSelection: true
+    },
+    { headerName: 'model', field: 'model', sortable: true, filter: true },
+    { headerName: 'price', field: 'price', sortable: true, filter: true }
   ];
 
   rowData: any;
@@ -24,6 +30,7 @@ export class AppComponent implements OnInit {
   // ];
 
   constructor(private http: HttpClient) {}
+
   ngOnInit() {
     this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
   }
