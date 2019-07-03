@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  @ViewChild('agGrid', { static: true }) agGrid: AgGridAngular;
   title = 'app';
 
   columnDefs = [
@@ -33,5 +35,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
+  }
+  getSelectedRows() {
+    const selectedNodes = this.agGrid.api.getSelectedNodes();
+    console.log('selectedNodes', selectedNodes);
+    const selectedData = selectedNodes.map(node => node.data);
+    console.log('selectedData', selectedData);
+    const selectedDataStringPresentation = selectedData
+      .map(node => node.make + ' ' + node.model)
+      .join(', ');
+    alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 }

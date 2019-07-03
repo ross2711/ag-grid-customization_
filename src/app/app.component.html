@@ -1,8 +1,14 @@
+<button (click)="getSelectedRows()">
+  Get Selected Rows (send data to server)
+</button>
+
 <ag-grid-angular
+  #agGrid
   style="width: 500px; height: 500px;"
   class="ag-theme-balham"
   [rowData]="rowData | async"
   [columnDefs]="columnDefs"
+  rowSelection="multiple"
 >
 </ag-grid-angular>
 
