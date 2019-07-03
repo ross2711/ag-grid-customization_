@@ -12,16 +12,18 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   columnDefs = [
-    {
-      headerName: 'make',
-      field: 'make',
-      sortable: true,
-      filter: true,
-      checkboxSelection: true
-    },
-    { headerName: 'model', field: 'model', sortable: true, filter: true },
-    { headerName: 'price', field: 'price', sortable: true, filter: true }
+    { headerName: 'Make', field: 'make', rowGroup: true },
+    { headerName: 'Price', field: 'price' }
   ];
+
+  autoGroupColumnDef = {
+    headerName: 'Model',
+    field: 'model',
+    cellRenderer: 'agGroupCellRenderer',
+    cellRendererParams: {
+      checkbox: true
+    }
+  };
 
   rowData: any;
   // Hardcoded data
@@ -34,7 +36,7 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.rowData = this.http.get('https://api.myjson.com/bins/15psn9');
+    this.rowData = this.http.get('https://api.myjson.com/bins/ly7d1');
   }
   getSelectedRows() {
     const selectedNodes = this.agGrid.api.getSelectedNodes();
